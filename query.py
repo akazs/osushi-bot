@@ -5,6 +5,7 @@ import re
 
 import requests
 from telegram import ChatAction
+from telegram.error import BadRequest
 
 import config
 from util import send_action
@@ -34,7 +35,7 @@ def send_photo(update, context, isGif, photoToSend):
             context.bot.send_animation(update.message.chat_id, photoToSend)
         else:
             context.bot.send_photo(update.message.chat_id, photoToSend)
-    except telegram.error.BadRequest:
+    except BadRequest:
         context.bot.send_message(chat_id=update.message.chat.id,
                                  text='Bad request on ' + photoToSend)
 
