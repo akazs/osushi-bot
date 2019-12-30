@@ -30,11 +30,21 @@ def query(q: str, key: str, cx: str, gif: bool = False) -> list:
 
 @send_action(ChatAction.UPLOAD_PHOTO)
 def send_photo(update, context, isGif, photoToSend):
+    id_for_reply = None
+    if update.message.reply_to_message:
+        id_for_reply = update.message.reply_to_message.message_id
+
     try:
         if isGif or photoToSend.split('?')[0].endswith('.gif'):
-            context.bot.send_animation(update.message.chat_id, photoToSend)
+            context.bot.send_animation(
+                update.message.chat_id,
+                photoToSend,
+                reply_to_message_id=id_for_reply)
         else:
-            context.bot.send_photo(update.message.chat_id, photoToSend)
+            context.bot.send_photo(
+                update.message.chat_id,
+                photoToSend,
+                reply_to_message_id=id_for_reply)
     except BadRequest:
         context.bot.send_message(chat_id=update.message.chat.id,
                                  text='Bad request on ' + photoToSend)
