@@ -1,16 +1,10 @@
 #!/usr/bin/env python3
-
-import logging
-
 import telegram
 from telegram.ext import CommandHandler, Filters, MessageHandler, Updater
 
 import config
 from query import accept_query
 from finance import foreign_exchange, retrieve_stock
-
-
-logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
 
 
 def start(update, context):
