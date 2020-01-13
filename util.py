@@ -21,8 +21,8 @@ def float_format(num):
         return num
 
     if fnum > 0.1:
-        return '{:.2f}'.format(fnum)
-    elif fnum > 0.01:
         return '{:.4f}'.format(fnum)
+    elif fnum > 0.01:
+        return '{:.6f}'.format(fnum)
     else:
         return '{:.8f}'.format(fnum).rstrip('0')
