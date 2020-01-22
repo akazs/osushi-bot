@@ -34,6 +34,7 @@ def send_photo(update, context, isGif, photoToSend):
     if update.message.reply_to_message:
         id_for_reply = update.message.reply_to_message.message_id
 
+
     try:
         if isGif or photoToSend.split('?')[0].endswith('.gif'):
             context.bot.send_animation(
@@ -51,7 +52,7 @@ def send_photo(update, context, isGif, photoToSend):
 
 
 def accept_query(update, context):
-    pattern = '^(.+)\.(jpg|png|gif|bmp)$'
+    pattern = '^(?!.*://)(.+)\.(jpg|png|gif|bmp)$'
     matches = re.match(pattern, update.message.text)
     if not matches:
         return
@@ -64,5 +65,5 @@ def accept_query(update, context):
                   q=keyword, gif=isGif)
     photoToSend = random.choices(items,
                   weights=list(reversed(range(1,len(items)+1))))[0]
-    print(photoToSend)
+    print(photoToSend, flush=True)
     send_photo(update, context, isGif, photoToSend)
