@@ -12,7 +12,7 @@ from util import send_action
 
 
 @lru_cache(maxsize=100)
-def query(q: str, key: str, cx: str, gif: bool = False) -> list:
+def query(q, key, cx, gif=False):
     api_url = 'https://www.googleapis.com/customsearch/v1'
     payload = {'key':key,
               'cx':cx,
