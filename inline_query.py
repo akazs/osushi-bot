@@ -16,18 +16,20 @@ def inline_query(update, context):
     keyword = matches[1]
     ext = matches[2]
     isGif = (ext == 'gif')
+
+    print('{}.{}'.format(keyword, ext), flush=True)
     
     items = query(key=config.query.api_key, cx=config.query.cx,
                   q=keyword, gif=isGif)
+
     results = []
-    if isGif:
-        for link in items:
+    for link in items:
+        if isGif or link.split('?')[0].endswith('.gif'):
             results.append(InlineQueryResultGif(
                 id=uuid4(),
                 gif_url=link,
                 thumb_url=link))
-    else:
-        for link in items:
+        else:
             results.append(InlineQueryResultPhoto(
                 id=uuid4(),
                 photo_url=link,
